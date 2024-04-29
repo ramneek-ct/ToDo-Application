@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do Application</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <h1>To Do Application</h1>
+
+  <body>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="section">
+          <h4>Display Title:</h4>
+          <button id="display-title" onclick="display()">
+            Click here to Display Titles
+          </button>
+        </div>
+        <br />
+
+        <div class="section">
+          <h4>Add New To Do:</h4>
+          <button id="add-user" onclick="add()">Click here to Add To Do</button>
+        </div>
+        <br />
+
+        <div class="section">
+          <h4>Search by title:</h4>
+          <button id="add-user" onclick="search()">Click here to Search</button>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <ul></ul>
+
+        <form id="add-todo-form">
+          <label for="userId">User Id: </label>
+          <input type="text" name="userId" class="userId" /><br />
+          <label for="title">Title: </label>
+          <input type="text" name="title" class="title" /><br />
+          <label for="completed">Completed: </label>
+          <input type="checkbox" name="completed" id="completed" /><br />
+          <button type="submit">Add user</button>
+        </form>
+
+        <form id="search-form">
+          <label for="search-title">Title: </label>
+          <input type="text" name="search-title" class="search-title" /><br />
+          <button type="submit">Search to do</button>
+        </form>
+
+      </div>
+    </div>
+
+    <h4>Mark/Edit/Delete ToDo: </h4>
+    <div id="titles"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

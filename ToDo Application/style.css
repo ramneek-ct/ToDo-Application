@@ -1,0 +1,28 @@
+#add-todo-form,
+#mark-todo-form,
+#search-form,
+ul{
+    display: none;
+}
+.section{
+    display: flex;
+}
+.section button{
+    margin-left: 20px;
+    max-width: 200px;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.col-sm-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+#titles p #mark,
+#titles button{
+    float: right;
+}
