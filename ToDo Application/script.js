@@ -158,5 +158,5 @@ mark_p.forEach((para,index) => {
     para.textContent = title;
     localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
   })
-})
+  })
 });
