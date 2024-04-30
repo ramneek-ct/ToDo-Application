@@ -111,6 +111,7 @@ const mark_p = document.querySelectorAll('#titles p');
 mark_p.forEach((para) => {
   const delete_button = document.createElement('button');
   delete_button.textContent = "Delete";
+  delete_button.id = "delete";
   para.append(delete_button);
   
 delete_button.addEventListener('click', (event) => {
@@ -131,6 +132,9 @@ mark_p.forEach((para,index) => {
   para.append(edit_button);
 
   edit_button.addEventListener('click', function() {
+    const edit_button = document.querySelector('#edit');
+    const delete_button = document.querySelector('#delete');
+    const checkbox_mark = document.querySelector('#mark');
     const edit_form = document.createElement('form');
     edit_form.id = "edit-form";
     const edit_label = document.createElement('label');
@@ -157,6 +161,7 @@ mark_p.forEach((para,index) => {
     my_todo_list[index].title = title;  
     console.log(my_todo_list);
     para.textContent = title;
+    para.append(checkbox_mark, delete_button, edit_button,);
     localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
   })
 })
