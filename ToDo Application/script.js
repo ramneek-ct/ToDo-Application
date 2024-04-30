@@ -34,7 +34,6 @@ function add() {
 
 const add_user_form = document.querySelector("#add-todo-form");
 add_user_form.addEventListener("submit", (event) => {
-  event.preventDefault();
 
   const UId = document.querySelector(".userId").value;
   const name = document.querySelector(".title").value;
@@ -98,7 +97,7 @@ search_form.addEventListener("submit", (event) => {
   const search_title = document.querySelector('.search-title');
   
   my_todo_list.forEach((item) => {
-    if(item.title == search_title.value){
+    if(item.title.toLowerCase().includes(search_title.value.toLowerCase())){
       console.log(`User Id: ${item.userId}`);
       console.log(`Id: ${item.id}`);
       console.log(`Title: ${item.title}`);
@@ -114,11 +113,13 @@ mark_p.forEach((para) => {
   delete_button.textContent = "Delete";
   para.append(delete_button);
   
-delete_button.addEventListener('click', (item) => {
-  const delete_index = my_todo_list.findIndex((val) => val.title == item.title);
+delete_button.addEventListener('click', (event) => {
+  event.preventDefault();
+  const delete_index = event.target.getAttribute("id");
+  para.remove();
+  console.log(delete_index);
   my_todo_list.splice(delete_index,1);
   localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
-  para.remove();
 });
 });
 
@@ -158,5 +159,5 @@ mark_p.forEach((para,index) => {
     para.textContent = title;
     localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
   })
-  })
+})
 });
