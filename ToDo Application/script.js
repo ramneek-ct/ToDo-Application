@@ -98,7 +98,7 @@ search_form.addEventListener("submit", (event) => {
   
   my_todo_list.forEach((item) => {
     if(item.title.toLowerCase().includes(search_title.value.toLowerCase())){
-      console.log(`User Id: ${item.userId}`);
+      console.log(`\nUser Id: ${item.userId}`);
       console.log(`Id: ${item.id}`);
       console.log(`Title: ${item.title}`);
       console.log(`Completed: ${item.completed}`);
@@ -118,51 +118,64 @@ delete_button.addEventListener('click', (event) => {
   event.preventDefault();
   const delete_index = event.target.getAttribute("id");
   para.remove();
-  console.log(delete_index);
   my_todo_list.splice(delete_index,1);
   localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
 });
 });
 
 // Edit
-mark_p.forEach((para,index) => {
+mark_p.forEach((para, index) => {
   const edit_button = document.createElement('button');
   edit_button.textContent = "Edit";
   edit_button.id = "edit";
   para.append(edit_button);
 
   edit_button.addEventListener('click', function() {
-    const edit_button = document.querySelector('#edit');
-    const delete_button = document.querySelector('#delete');
-    const checkbox_mark = document.querySelector('#mark');
+    const delete_button = document.createElement('button');
+    delete_button.textContent = "Delete";
+    delete_button.id = "delete";
+
+    const checkbox_mark = document.createElement('input');
+    checkbox_mark.type = "checkbox";
+    checkbox_mark.id = "mark";
+
+    const edit_f_check = document.querySelector('#edit-form');
+    if(edit_f_check){
+      edit_f_check.remove();
+    }
+    else{
     const edit_form = document.createElement('form');
     edit_form.id = "edit-form";
+
     const edit_label = document.createElement('label');
     edit_label.textContent = "New title: ";
-    edit_label.for = "edit-title"; 
-    edit_form.append(edit_label);
+    edit_label.setAttribute("for", "edit-title");
+
     const edit_title = document.createElement('input');
     edit_title.type = "text";
     edit_title.className = "edit-title";
-    edit_form.append(edit_title);
+
     const submit_button = document.createElement('button');
     submit_button.textContent = "Confirm Changes";
-    edit_form.append(submit_button);
+
+    edit_form.append(edit_label, edit_title, submit_button);
+
     para.append(edit_form);
 
-  edit_form.addEventListener('submit',function(event){
-    event.preventDefault();
-    const edited_title = document.querySelector('.edit-title');
-    let title = Array.from(para.childNodes) 
-    .filter((node) => node.nodeType == Node.TEXT_NODE)
-    .map((item) => item.textContent)
-    .join('');
-    title = edited_title.value;
-    my_todo_list[index].title = title;  
-    console.log(my_todo_list);
-    para.textContent = title;
-    para.append(checkbox_mark, delete_button, edit_button,);
-    localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
-  })
-})
+    edit_form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const edited_title = document.querySelector('.edit-title');
+      let title = Array.from(para.childNodes)
+        .filter((node) => node.nodeType == Node.TEXT_NODE)
+        .map((item) => item.textContent)
+        .join('');
+      title = edited_title.value;
+      my_todo_list[index].title = title;
+      console.log(my_todo_list);
+      para.textContent = title;
+      para.append(checkbox_mark, delete_button, edit_button);
+      localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
+    });
+  }
+  });
 });
