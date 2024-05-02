@@ -173,7 +173,35 @@ mark_p.forEach((para, index) => {
       my_todo_list[index].title = title;
       console.log(my_todo_list);
       para.textContent = title;
+
       para.append(checkbox_mark, delete_button, edit_button);
+
+      delete_button.addEventListener('click', (event) => {
+        event.preventDefault();
+        para.remove();
+        my_todo_list.splice(index, 1);
+        localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
+      });
+      
+      checkbox_mark.checked = my_todo_list[index].completed;
+      if(checkbox_mark.checked){
+        para.style.cssText = 'background-color: #F66666'; //red
+      }
+      else{
+        para.style.cssText = 'background-color: #96FB96'; //green
+      }
+      checkbox_mark.addEventListener('change', function() {
+        if(this.checked){
+          para.style.cssText = 'background-color: #F66666'; //red
+          my_todo_list[index].completed = true;
+        }
+        else{
+          para.style.cssText = 'background-color: #96FB96'; //green
+          my_todo_list[index].completed = false;
+        }
+        localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
+      });
+
       localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
     });
   }
