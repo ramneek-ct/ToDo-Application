@@ -39,9 +39,15 @@ add_user_form.addEventListener("submit", (event) => {
   const name = document.querySelector(".title").value;
   let done = document.getElementById("completed").checked;
 
+  let highest_id = 0;
+  my_todo_list.forEach((item) => {
+    if(item.id > highest_id){
+      highest_id = item.id;
+    }
+  });
   const data = {
     userId: parseInt(UId),
-    id: my_todo_list.length > 0 ? my_todo_list[my_todo_list.length - 1].id + 1 : 1,
+    id: highest_id + 1,
     title: name,
     completed: done,
   };
@@ -111,16 +117,17 @@ const mark_p = document.querySelectorAll('#titles p');
 mark_p.forEach((para) => {
   const delete_button = document.createElement('button');
   delete_button.textContent = "Delete";
-  delete_button.id = "delete";
+  delete_button.className = "delete-button";
   para.append(delete_button);
-  
-delete_button.addEventListener('click', (event) => {
-  event.preventDefault();
-  const delete_index = event.target.getAttribute("id");
-  para.remove();
-  my_todo_list.splice(delete_index,1);
-  localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
 });
+document.addEventListener('click', function(event) {
+    const index = Array.from(event.target.parentNode.parentNode.children).indexOf(event.target.parentNode);
+    const delete_index = document.querySelectorAll('#titles p')[index];
+    delete_index.remove();
+  
+    my_todo_list.splice(index, 1);
+  
+    localStorage.setItem("to-do-list", JSON.stringify(my_todo_list));
 });
 
 // Edit
